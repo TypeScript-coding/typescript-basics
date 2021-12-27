@@ -1,8 +1,15 @@
-function add(n1:number, n2: number) {
-    return n1 + n2;
-}
+type User = {
+    name: string,
+    age: number
+};
 
-const number1 = 5,
-    number2 = 2.8;
+const person: User = {
+    name: 'Adam',
+    age: 30,
+};
 
-console.log(add(number1, number2));
+let role: [number, string] = [2, 'author'];
+
+role.push('mango')
+
+console.log(person.name);
