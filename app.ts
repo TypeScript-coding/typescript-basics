@@ -41,3 +41,25 @@ const person = {
 if(person.role === Role.ADMIN) {
     console.log('Is admin');
 }
+
+//union types
+function combine(
+    input1: number | string,
+    input2: number | string,
+    resultConversion: 'as-number' | 'as-text'
+) {
+    if(typeof input1 === 'number' && typeof input2 === "number" || resultConversion === 'as-number') {
+        return +input1 + +input2;
+    } else {
+        return input1.toString() + input2.toString();
+    }
+}
+
+const combinedAges = combine(30, 26, 'as-number');
+console.log('combinedAges: ', combinedAges);
+
+const combinedStringAges = combine('30', '26', 'as-number');
+console.log('combinedStringAges: ', combinedStringAges);
+
+const combinedNames = combine('Adam', 'Bassant', "as-text");
+console.log('combinedNames:', combinedNames);
