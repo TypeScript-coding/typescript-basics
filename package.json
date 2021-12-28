@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start": "lite-server",
-    "compile": "tsc app.ts"
+    "compile": "tsc app.ts",
+    "watch": "yarn compile --watch"
   },
   "author": "Maximilian Schwarzmüller",
   "license": "ISC",
