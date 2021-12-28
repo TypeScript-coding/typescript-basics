@@ -42,10 +42,13 @@ if(person.role === Role.ADMIN) {
     console.log('Is admin');
 }
 
+//type aliases
+type Combinable = number | string;
+
 //union types
 function combine(
-    input1: number | string,
-    input2: number | string,
+    input1: Combinable,
+    input2: Combinable,
     resultConversion: 'as-number' | 'as-text'
 ) {
     if(typeof input1 === 'number' && typeof input2 === "number" || resultConversion === 'as-number') {
