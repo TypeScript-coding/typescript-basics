@@ -25,18 +25,22 @@ class ITDepartment extends Department {
     }
 }
 
-//accounting
-const accounting = new Department('d1', 'Accounting');
-console.log('%c Accounting department', 'color: red; font-size: 20px;', accounting);
+class AccountingDepartment extends Department {
+    constructor(id: string, private reports: string[]) {
+        super(id, 'Accounting');
+    }
 
-accounting.addEmployee('Adam');
-accounting.addEmployee('Bassant');
+    addReport(report: string) {
+        this.reports.push(report);
+    }
 
-accounting.describe();
-accounting.printEmployeeInformation();
+    printReports() {
+        console.log('Reports list: ', this.reports);
+    }
+}
 
 //IT
-const it = new ITDepartment('d2', ['Adam', 'Regina']);
+const it = new ITDepartment('d1', ['Adam', 'Regina']);
 console.log('%c IT department', 'color: red; font-size: 20px;', it);
 
 it.addEmployee('Adam');
@@ -44,3 +48,15 @@ it.addEmployee('Bassant');
 
 it.describe();
 it.printEmployeeInformation();
+
+//accounting
+const accounting = new AccountingDepartment('d2', []);
+console.log('%c Accounting department', 'color: red; font-size: 20px;', accounting);
+
+accounting.addEmployee('Maxim');
+accounting.addEmployee('Vasilis');
+accounting.addReport('Something went wrong');
+accounting.printReports();
+
+accounting.describe();
+accounting.printEmployeeInformation();
