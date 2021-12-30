@@ -15,3 +15,18 @@ user1 = {
 }
 
 user1.greet("Hi there, I'm ");
+
+//interfaces with classes
+interface Greetable {
+    name: string;
+    greet: (phrase: string) => void;
+}
+
+class Person2 implements Greetable {
+    constructor(public name: string) {
+    }
+
+    greet(phrase: string) {
+        console.log(`${phrase} ${this.name}`);
+    }
+}
