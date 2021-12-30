@@ -67,3 +67,26 @@ accounting.printReports();
 
 accounting.describe();
 accounting.printEmployeeInformation();
+
+//singleton class
+class SocialMediaDepartment extends Department {
+    private static instance: SocialMediaDepartment;
+
+    private constructor(id: string) {
+        super(id, 'Social Media');
+    }
+
+    static getInstance() {
+        if(this.instance) {
+            return this.instance;
+        }
+        this.instance = new SocialMediaDepartment('d3');
+        return this.instance;
+    }
+}
+
+const socialMedia = SocialMediaDepartment.getInstance(),
+    socialMedia2 = SocialMediaDepartment.getInstance();
+
+console.log('%c first social media', 'color: red; font-size: 20px;', socialMedia);
+console.log('%c second social media', 'color: red; font-size: 20px;', socialMedia2);
