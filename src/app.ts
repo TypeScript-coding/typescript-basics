@@ -16,12 +16,15 @@ user1 = {
 
 user1.greet("Hi there, I'm ");
 
-//interfaces with classes
-interface Greetable {
+interface Named {
     readonly name: string;
+}
+
+interface Greetable extends Named{
     greet: (phrase: string) => void;
 }
 
+//interfaces with classes
 class Person2 implements Greetable {
     constructor(public name: string) {
     }
@@ -35,5 +38,6 @@ let user2: Greetable;
 user2 = new Person2('Adam');
 
 user2.greet('Welcome');
+//you cannot do the following because name is set to readonly
 // user2.name = 'Yellow';
 user2.greet('Welcome');
