@@ -23,8 +23,8 @@ type Universal = Generic & Numeric;
 
 const n1: Universal = 3;
 
-//discriminated unions
-interface Bird {
+/****************** discriminated unions ******************/
+ interface Bird {
     type: 'bird',
     flyingSpeed: number,
 }
@@ -52,3 +52,21 @@ function moveAnimal(animal: Animal) {
 }
 
 moveAnimal({type: "bird", flyingSpeed: 50});
+
+/****************** type casting ******************/
+/*//original syntax
+const userInputElement = <HTMLInputElement>document.getElementById('user-input');*/
+//newer syntax
+const userInputElement = document.getElementById('user-input') as HTMLInputElement;;
+
+userInputElement.value = 'Hi there!';
+
+/****************** index properties ******************/
+interface ErrorContainer {
+    [prop: string]: string,
+}
+
+const errors: ErrorContainer = {
+    email: 'Not a valid email',
+    username: 'Must start with a capital character',
+};
