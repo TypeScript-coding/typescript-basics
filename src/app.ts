@@ -18,12 +18,23 @@ const pers = new Person();
 console.log(pers);
 
 /************** decorator factories ***************/
+//example1
 const Logger2 = (logString: string) => (constructor: Function) => {
     console.log(logString);
     console.log(constructor);
 }
 
-@Logger2('LOGGING - PERSON')
+//example2
+const withTemplate = (template: string, hookId: string) => (_: Function) => {
+    const element = document.getElementById(hookId);
+
+    if(element) {
+        element.innerHTML = template;
+    }
+}
+
+// @Logger2('LOGGING - PERSON')
+@withTemplate('<h1>My person object</h1>', 'app')
 class AnotherPerson {
     name = 'Adam2';
 
