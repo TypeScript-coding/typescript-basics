@@ -45,13 +45,39 @@ class AnotherPerson {
     }
 }
 
-//example2
+//example3 (property decorator)
 const Log = (target: any, propertyName: string) => {
-    console.log('Property decorator!');
-    console.log(target, propertyName);
+    console.log('%c Property decorator!', 'color: red; font-size: 20px;');
+    console.log(target);
+    console.log(propertyName);
+}
+
+//example4 (accessor decorator)
+const Log2 = (target: any, accessorName: string, descriptor: PropertyDescriptor) => {
+    console.log('%c Accessor decorator!', 'color: red; font-size: 20px;');
+    console.log(target);
+    console.log(accessorName);
+    console.log(descriptor);
+}
+
+//example5 (method decorator)
+const Log3 = (target: any, methodName: string, descriptor: PropertyDescriptor) => {
+    console.log('%c Method decorator!', 'color: red; font-size: 20px;');
+    console.log(target);
+    console.log(methodName);
+    console.log(descriptor);
+}
+
+//example6 (parameter decorator)
+const Log4 = (target: any, methodName: string | Symbol, position: number) => {
+    console.log('%c Parameter decorator!', 'color: red; font-size: 20px;');
+    console.log(target);
+    console.log(methodName);
+    console.log(position);
 }
 
 class Product {
+    //property decorator example
     @Log
     title: string;
 
@@ -59,6 +85,8 @@ class Product {
         this.title = t;
     }
 
+    //accessor decorator example
+    @Log2
     set price(val: number) {
         if(val > 0) {
             this._price = val;
@@ -68,7 +96,8 @@ class Product {
         }
     }
 
-    getPriceWithTax(tax: number) {
+    @Log3
+    getPriceWithTax(@Log4 tax: number) {
         return this._price * (1 + tax);
     }
 }
