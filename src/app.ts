@@ -13,7 +13,7 @@ promise.then((data) => {
 
 /************** custom generics ***************/
 //example1
-function merge<T, U>(obj1: T, obj2: U) {
+function merge<T extends object, U extends object>(obj1: T, obj2: U) {
     return Object.assign(obj1, obj2);
 }
 
@@ -22,7 +22,7 @@ const mergedObj = merge({name: 'Max'}, {age: 30});
 console.log(mergedObj.name);
 
 //example2
-const updateObject = <T, U>(oldObject: T, UpdatedValues: U) => ({
+const updateObject = <T extends object, U extends object>(oldObject: T, UpdatedValues: U) => ({
     ...oldObject,
     ...UpdatedValues,
 });
