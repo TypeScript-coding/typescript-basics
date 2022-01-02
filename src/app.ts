@@ -69,7 +69,7 @@ class DataStorage<T extends string | number | boolean> {
     }
 
     removeItem(item: T) {
-        if(this.data.splice(this.data.indexOf(item) === -1) {
+        if(this.data.indexOf(item) === -1) {
             return;
         }
         this.data.splice(this.data.indexOf(item), 1);
@@ -87,3 +87,23 @@ textStorage.removeItem('Max');
 console.log(textStorage.getItems());
 
 const numberStorage = new DataStorage<number>();
+
+//partial types
+interface CourseGoal {
+    title: string,
+    description: string,
+    completeUntil: Date,
+}
+
+function createCourseGoal(title: string, description: string, date: Date): CourseGoal {
+    let courseGoal: Partial<CourseGoal> = {};
+
+    courseGoal.title = title;
+    courseGoal.description = description;
+    courseGoal.completeUntil = date;
+
+    return courseGoal as CourseGoal;
+}
+
+//readonly array
+const namesArr: Readonly<string[]> = ['Adam', 'Bassant'];
