@@ -28,7 +28,7 @@ const Logger2 = (logString: string) => (constructor: Function) => {
 }
 
 //example2 (class decorator)
-const withTemplate = (template: string, hookId: string) => <T extends {new (...args: any[]): {name: string}}>(originalConstructor: T) => {
+const withTemplate = (template: string, hookId: string) => <T extends { new(...args: any[]): { name: string } }>(originalConstructor: T) => {
     return class extends originalConstructor {
         constructor(..._: any[]) {
             super();
@@ -36,7 +36,7 @@ const withTemplate = (template: string, hookId: string) => <T extends {new (...a
             console.log('Rendering template');
 
             console.log(`This is the name property of the class assigned to withTemplate decorator ${this.name}`);
-            if(element) {
+            if (element) {
                 element.innerHTML = template;
             }
         }
@@ -49,7 +49,7 @@ class AnotherPerson {
     name = 'Adam2';
 
     constructor() {
-        console.log('Createing person object...');
+        console.log('Creating person object...');
     }
 }
 
@@ -98,7 +98,7 @@ class Product {
     //accessor decorator example
     @Log2
     set price(val: number) {
-        if(val > 0) {
+        if (val > 0) {
             this._price = val;
 
         } else {
@@ -111,3 +111,29 @@ class Product {
         return this._price * (1 + tax);
     }
 }
+
+//auto bind decorator
+const autoBind = (_1: any, _2: string, descriptor: PropertyDescriptor) => {
+    const originalMethod = descriptor.value,
+        adjDescriptor: PropertyDescriptor = {
+            configurable: true,
+            enumerable: false,
+            get() {
+                return originalMethod.bind(this);
+            }
+        }
+    return adjDescriptor;
+}
+
+class Printer {
+    message = 'This works!';
+
+    @autoBind
+    showMessage() {
+        console.log(this.message);
+    }
+}
+
+const p = new Printer();
+const button = document.querySelector('button') as HTMLButtonElement;
+button.addEventListener('click', p.showMessage)
