@@ -1,4 +1,6 @@
 /************** decorators ***************/
+import construct = Reflect.construct;
+
 function Logger(constructor: Function) {
     console.log('Logging...');
     console.log(constructor);
@@ -18,20 +20,26 @@ class Person {
 console.log(pers);*/
 
 /************** decorator factories ***************/
-//example1
+//example1 (class decorator)
 const Logger2 = (logString: string) => (constructor: Function) => {
     console.log('Logger2');
     console.log(logString);
     console.log(constructor);
 }
 
-//example2
-const withTemplate = (template: string, hookId: string) => (_: Function) => {
-    const element = document.getElementById(hookId);
-    console.log('Rendering template');
+//example2 (class decorator)
+const withTemplate = (template: string, hookId: string) => <T extends {new (...args: any[]): {name: string}}>(originalConstructor: T) => {
+    return class extends originalConstructor {
+        constructor(..._: any[]) {
+            super();
+            const element = document.getElementById(hookId);
+            console.log('Rendering template');
 
-    if(element) {
-        element.innerHTML = template;
+            console.log(`This is the name property of the class assigned to withTemplate decorator ${this.name}`);
+            if(element) {
+                element.innerHTML = template;
+            }
+        }
     }
 }
 
@@ -44,6 +52,8 @@ class AnotherPerson {
         console.log('Createing person object...');
     }
 }
+
+const anotherPerson = new AnotherPerson();
 
 //example3 (property decorator)
 const Log = (target: any, propertyName: string) => {
@@ -69,11 +79,11 @@ const Log3 = (target: any, methodName: string, descriptor: PropertyDescriptor) =
 }
 
 //example6 (parameter decorator)
-const Log4 = (target: any, methodName: string | Symbol, position: number) => {
+const Log4 = (target: any, methodName: string | Symbol, parameterPosition: number) => {
     console.log('%c Parameter decorator!', 'color: red; font-size: 20px;');
     console.log(target);
     console.log(methodName);
-    console.log(position);
+    console.log(parameterPosition);
 }
 
 class Product {
